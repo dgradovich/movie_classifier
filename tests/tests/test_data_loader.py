@@ -10,7 +10,7 @@ class DataLoaderUnitTest(unittest.TestCase):
 
     def test(self):
         """
-        Test Data Loader
+        Unit test test catching exceptions in Data Loader
         """
         dl = DataLoader()
         # check multi label binarize

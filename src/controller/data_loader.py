@@ -12,16 +12,17 @@ import pandas as pd
 import ast
 from src.utils.paths import get_data_path, get_models_path
 from src.utils.words import LemmaTokenizer, get_stopwords_punct  
-from src.utils.load_save import save_obj
+from src.utils.load_save import save_obj, find_default
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.feature_extraction.text import TfidfVectorizer
+
 
 
 class DataLoader:
 
     def __init__(self):
 
-        self.data_file_name = 'movies_metadata.csv'
+        self.data_file_name = find_default('data_file')
         self.columns = ['overview', 'genres', 'original_title']
         self.selected_genres = ['Action','Adventure', 'Animation',
                                 'Comedy','Crime', 'Documentary', 'Drama',
@@ -151,7 +152,6 @@ class DataLoader:
         logging.info('Loading raw data...')
         df = self.load_raw_data()
         
-
         genres_list = df['genres'].apply(self.parse_genres)
         logging.info('Processing genres...')
 

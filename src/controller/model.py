@@ -15,7 +15,7 @@ from sklearn.metrics import hamming_loss, make_scorer
 from skmultilearn.problem_transform import LabelPowerset
 import numpy as np
 
-from src.utils.load_save import save_obj
+from src.utils.load_save import save_obj, find_default
 from src.utils.paths import get_models_path
 
 
@@ -24,15 +24,19 @@ class BaseLineModel:
         """
         A baseline model for movie classification
         """
-        self.type = 'random_forest'
-        self.parameter_search = {'classifier': [RandomForestClassifier(random_state=42)],
-                                'classifier__n_estimators': [10, 50, 100],
-                                'classifier__max_depth': [2, 5, 10]}
+        self.type = find_default('model')
         self.cv = 5
-        self.default_parameters = {'classifier': [RandomForestClassifier(random_state=42)],
-                                'classifier__n_estimators': [10],
-                                'classifier__max_depth': [2]}
         self.score = make_scorer(hamming_loss, greater_is_better=False)
+        if self.type == 'random_forest':
+            self.parameter_search = {'classifier': [RandomForestClassifier(random_state=42)],
+                                    'classifier__n_estimators': [10, 50, 100],
+                                    'classifier__max_depth': [2, 5, 10]}
+            self.default_parameters = {'classifier': [RandomForestClassifier(random_state=42)],
+                                    'classifier__n_estimators': [10],
+                                    'classifier__max_depth': [2]}
+        else:
+            raise NotImplementedError("Unknonw model type")
+        
   
     def train_model(self,
         features,

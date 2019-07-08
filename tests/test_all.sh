@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd tests/unit/
+cd tests/tests/
 for test in test_*.py
 do
     python3 "${test}" -v

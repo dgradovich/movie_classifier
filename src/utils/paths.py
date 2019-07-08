@@ -59,3 +59,17 @@ def get_output_path(model_object_filename):
         'resources',
         'output',
         model_object_filename)
+
+
+def get_config_path():
+    """
+    Get the absolute path to models and vectorizer objects
+
+    :return: Absolute path to data 
+    """
+
+    project_path = set_main_path()
+    return os.path.join(project_path,
+        'src',
+        'conf',
+        'config.json')

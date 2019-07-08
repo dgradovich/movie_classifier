@@ -19,14 +19,12 @@ parser.add_argument('--description', help='The movie description', type=str)
 parser.add_argument('--retrain', help='Retrain the current model', type=bool)
 
 
-
 try:
     args = parser.parse_args()
 except Exception as e:
     logging.error("Cannot parse arguments")
     logging.error(e)
 
-print(args.retrain)
 
 def check_inputs(args):
     """
@@ -124,5 +122,5 @@ if __name__ == "__main__":
     if len(prediction) > 0:
         save_output(prediction)
     else:
-        logging.warning("Cannot make a prediction. Please try again with more detailed description.")
+        logging.error("Cannot make a prediction. Please try again with more detailed description or retrain the model.")
 

@@ -1,0 +1,5 @@
+{
+    "data_file": "movies_metadata.csv",
+    "model":  "random_forest"
+
+}
